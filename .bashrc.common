@@ -5,11 +5,11 @@ export env_dir=`dirname "${BASH_SOURCE[0]}"`
 # Invoke the following function for setup of Git build environment
 source ${env_dir}/git_env.bash
 
-if [ "$HOSTNAME" == "elitpts10" ]; then
+if [[ "$HOSTNAME" == "elitpts10" ]]; then
 	source ${env_dir}/servers/elitptsrc
-elif [ "$HOSTNAME"* == "icsl"* ]; then
+elif [[ "$HOSTNAME" == "icsl"* ]]; then
 	source ${env_dir}/servers/icslrc
-endif
+fi
 
 function vs()
 {
@@ -101,12 +101,8 @@ if ( ! (echo $PATH | grep -c -q ":~/bin") ); then
 	export PATH=$PATH:~/bin
 fi
 
-if ( ! (echo $PATH | grep -c -q $KLOCKWORK_PATH) ); then
+if ( ! (echo $PATH | grep -c -q "$KLOCKWORK_PATH") ); then
     export PATH=$KLOCKWORK_PATH:$PATH
-fi
-
-if ( ! (echo $PATH | grep -c -q $env_dir) ); then
-        export PATH=$env_dir:$PATH
 fi
 
 function chdlab()
