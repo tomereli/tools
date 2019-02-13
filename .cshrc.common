@@ -1,0 +1,17 @@
+# fix BACKSPACE not working on certain situations:
+stty erase 
+
+set EC_NO_ADD_DOTPATH=1
+# Remove '.' from the path:
+modpath -q -f -d '.'
+
+# Remove '/usr/intel/bin' from the path:
+modpath -q -f -d '/usr/intel/bin'
+
+# add intltool:
+modpath -q -n 1 '/usr/share/intltool-debian'
+
+if ( $?prompt ) then
+	echo "Interactive Shell - Running bash..."
+	bash
+endif

@@ -1,0 +1,6 @@
+
+if [ "$HOSTNAME"* == "icsl"* ]; then
+	if [ -r "/nfs/site/proj/chdsw/dev/common/wcci_tools2/.cshrc.common" ]; then
+		. /nfs/site/proj/chdsw/dev/common/wcci_tools2/.cshrc.common
+	fi
+endif

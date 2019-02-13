@@ -1,0 +1,6 @@
+export LOCAL_HOME=/home/$USER/workspace
+export KLOCKWORK_PATH=/opt/ugw/klockwork/kw123/bin
+export CHDLAB_PATH=/opt/ugw/chdlabv3
+#UGW external toolchain support
+export TOOLCHAIN_MIPS="/opt/ugw/toolchain/64bit/toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2_linux_3_10"
+export VSCODE_COMMAND="/usr/bin/code"

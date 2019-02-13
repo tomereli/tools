@@ -1,0 +1,16 @@
+########################################################################
+# Commit Message Template
+#  - Lines starting with '#' are comments and are stripped by git.
+#  - Audience: Developers
+#  - First line is the Title, a high level description of changes
+# -------  50 Character Limit ------------------>
+sub-component: 50 char brief desc of change
+# -------  50 Character Limit ------------------>
+# Leave one blank line
+
+# --------------- 72 Character Limit ---------------------------------->
+# In this commit message, answer the following questions:
+#  - Why is this change necessary? What is the symptom?
+#  - How does it address the issue?
+#  - What side effects does this change have?
+# --------------- 72 Character Limit ---------------------------------->

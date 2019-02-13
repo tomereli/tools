@@ -1,0 +1,12 @@
+<repo_name> WLANRTSYS-XXXX fixed/partial/additional: <Jira Subject>
+
+Elaborate:
+
+Changed:
+<what and why>
+
+Test:
+<what and how>
+
+Dependencies: Yes/No
+<if Yes, add here relevant components (e.g. common/framework/controller/agent)>

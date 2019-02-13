@@ -1,0 +1,28 @@
+[user]
+	name = <NAME>
+	email = <EMAIL>
+
+[core]
+	gitProxy = git-proxy
+	gitproxy = none for intel.com
+	editor = vi
+	autocrlf = input
+	pager = cat
+
+[apply]
+	ignorewhitespace = change
+
+[color]
+	ui = auto
+
+[diff]
+	tool = meld
+
+[commit]
+        template = <WCCI DIR in server>/commit-template.txt
+
+[credential]
+	helper = cache
+
+[http]
+	sslverify = false

@@ -1,0 +1,13 @@
+*.pyc
+toolchains
+.nfs0000000009f9f131000005ab
+jre-8u73-linux-x64
+chdlab
+jre1.8.0_73/
+*.pyo
+#share/
+#lib/
+#include/
+#bin/
+#etc/
+lib/.nfs*

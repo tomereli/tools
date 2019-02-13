@@ -1,0 +1,72 @@
+# Default Configuration for Lantiq's Mercurial Distribution
+[ui]
+username = <USER and EMAIL>
+
+
+[diff]
+git = true
+
+[web]
+style = gitweb
+
+[auth]
+mts.schemes = https
+mts.prefix = mts-chd.intel.com
+mts.username = $USER
+mts.password = <PASSWORD>
+
+[extensions]
+#cc_importucm =
+color =
+extdiff =
+graphlog =
+# hgshelve = 
+# shelve = /nfs/iil/proj/chdsw/dev/common/mercurial/hgshelve/hgshelve.py
+shelve =
+#importfs = /nfs/iil/proj/chdsw/dev/common/mercurial/hg-importfs/importfs.py
+importfs =
+mercurial_keyring = !
+# onsub = /nfs/iil/proj/chdsw/dev/common/mercurial/onsub/onsub.py
+onsub = /opt/ugw/wcci_tools/hg-env/extensions/onsub/onsub.py
+progress =
+# prompt = 
+# projrc = /nfs/iil/proj/chdsw/dev/common/mercurial/projrc1.py
+projrc = /opt/ugw/wcci_tools/hg-env/extensions/projrc/projrc1.py
+purge =
+rebase =
+record =
+# snap = 
+# subpaths = 
+versions = !
+highlight =
+relink =
+snap = !
+hgext.snap=!
+mq =
+#hgsubversion = ~/hgsubversion/hgsubversion
+convert = 
+# hggit = /tmp2/meydav/experimental/hg-git/hggit
+#fastimport = /tmp2/meydav/experimental/hg-fastimport/hgfastimport
+histedit = 
+#~/durin42-histedit-aea051d162a7/hg_histedit.py
+
+[projrc]
+servers = https://mts-chd.intel.com/*
+confirm = false
+
+[http_proxy]
+no = mts-chd.intel.com
+host = proxy-us.intel.com:912
+
+[alias]
+clog = !hg log -X $(hg root)/.hgtags
+clone = clone --uncompressed
+
+
+[hostfingerprints]
+#mts.lantiq.com=0F:92:D5:B1:73:C6:BC:0A:70:89:7F:3D:9B:EB:2E:7A:BE:A5:C9:37
+
+
+#[hostfingerprints]
+#mts.lantiq.com = 5a:b8:72:16:9d:76:89:ea:33:84:1f:52:45:d2:e7:f0:1d:51:3e:96
+#localhost = 5a:b8:72:16:9d:76:89:ea:33:84:1f:52:45:d2:e7:f0:1d:51:3e:96

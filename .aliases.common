@@ -1,0 +1,61 @@
+# EC Standard Login Environment -*- sh -*-
+# user .aliases file
+# $Source: /usr/cvs/cvsrep/ec_environ-1.0/release/user/aliases,v $
+# $Revision: 1.1 $
+
+# You may place your personal aliases here or in .cshrc.$USER
+#
+# examples:
+# alias . exit
+# alias e emacs
+# alias telnet ssh2
+# Aliases
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias ls='ls --color=auto'
+alias ll='ls -la'
+alias lls='ls -lah --color=auto'
+alias r='cd $LOCAL_HOME'
+alias h='cd ~/'
+alias grep='grep --color=auto'
+alias cgrep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias gitlog='git log --pretty=format:"%H - %an, %ar : %s" --simplify-merges'
+alias hglog='hg log --template "{node|short} | {date|age} | {author|person}: {desc|strip|firstline}\n"'
+alias hgglog='hg glog --template "{node|short} | {date|age} | {author|person}: {desc|strip|firstline}\n"'
+alias vncservert="vncserver -geometry 1920x1080 -depth 24"
+alias killbg='kill $(jobs -p)'
+# handy short cuts #
+alias j='jobs -l'
+alias g='geany'
+alias code=$VSCODE_COMMAND
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+
+alias vi=vim
+alias ports='netstat -tulanp'
+
+## pass options to free ##
+alias meminfo='free -m -l -t'
+
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+
+## Get server cpu info ##
+alias cpuinfo='lscpu'
+alias df='df -H'
+alias du='du -ch'
+alias gg='cgrep -snir'
+alias cd=cd_func

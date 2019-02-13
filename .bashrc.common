@@ -1,0 +1,164 @@
+##########  Required for every Developer  ##########
+
+export env_dir=`dirname "${BASH_SOURCE[0]}"`
+
+# Invoke the following function for setup of Git build environment
+source ${env_dir}/git_env.bash
+
+if [ "$HOSTNAME" == "elitpts10" ]; then
+	source ${env_dir}/servers/elitptsrc
+elif [ "$HOSTNAME"* == "icsl"* ]; then
+	source ${env_dir}/servers/icslrc
+endif
+
+function vs()
+{
+	[[ -z "$slickedit" ]] && echo "slickedit envionment variable not found, please run export slickedit=<path-to-slickedit>/bin/vs" && return 1
+
+	file=`echo "$1" | awk -F':' '{print $1}'`
+	line=`echo "$1" | awk -F':' '{print $2}'`
+
+	if [ -z "$line" ] && [ -z "$file" ]; then
+		"$slickedit" &
+	elif [ -z "$line" ]; then
+		"$slickedit" "$file" &
+	else
+		"$slickedit" "$file" "-#goto-line $line"  &
+	fi
+}
+
+
+function gg()
+{
+	git rev-parse 2>/dev/null
+	if [ $? -eq 0 ]; then
+		echo git grep -n $@
+		git grep -n $@
+	else
+		echo grep -snrI --color=auto $@ *
+		grep -snrI --color=auto $@ *
+	fi
+}
+
+# This function defines a 'cd' replacement function capable of keeping, 
+# displaying and accessing history of visited directories, up to 10 entries.
+# To use it, uncomment it, source this file and try 'cd --'.
+# acd_func 1.0.5, 10-nov-2004
+# Petar Marinov, http:/geocities.com/h2428, this is public domain
+cd_func ()
+{
+	local x2 the_new_dir adir index
+	local -i cnt
+
+	if [[ $1 ==  "--" ]]; then
+		dirs -v
+		return 0
+	fi
+
+	the_new_dir=$1
+	[[ -z $1 ]] && the_new_dir=$HOME
+
+	if [[ ${the_new_dir:0:1} == '-' ]]; then
+		#
+		# Extract dir N from dirs
+		index=${the_new_dir:1}
+		[[ -z $index ]] && index=1
+		adir=$(dirs +$index)
+		[[ -z $adir ]] && return 1
+		the_new_dir=$adir
+	fi
+
+	#
+	# '~' has to be substituted by ${HOME}
+	[[ ${the_new_dir:0:1} == '~' ]] && the_new_dir="${HOME}${the_new_dir:1}"
+
+	#
+	# Now change to the new dir and add to the top of the stack
+	pushd "${the_new_dir}" > /dev/null
+	[[ $? -ne 0 ]] && return 1
+	the_new_dir=$(pwd)
+
+	#
+	# Trim down everything beyond 11th entry
+	popd -n +11 2>/dev/null 1>/dev/null
+
+	#
+	# Remove any other occurence of this dir, skipping the top of the stack
+	for ((cnt=1; cnt <= 10; cnt++)); do
+		x2=$(dirs +${cnt} 2>/dev/null)
+		[[ $? -ne 0 ]] && return 0
+		[[ ${x2:0:1} == '~' ]] && x2="${HOME}${x2:1}"
+		if [[ "${x2}" == "${the_new_dir}" ]]; then
+			popd -n +$cnt 2>/dev/null 1>/dev/null
+			cnt=cnt-1
+		fi
+	done
+
+	return 0
+}
+
+if ( ! (echo $PATH | grep -c -q ":~/bin") ); then
+	export PATH=$PATH:~/bin
+fi
+
+if ( ! (echo $PATH | grep -c -q $KLOCKWORK_PATH) ); then
+    export PATH=$KLOCKWORK_PATH:$PATH
+fi
+
+if ( ! (echo $PATH | grep -c -q $env_dir) ); then
+        export PATH=$env_dir:$PATH
+fi
+
+function chdlab()
+{
+	local virtual="$VIRTUAL_ENV"
+	VIRTUAL_ENV_DISABLE_PROMPT=1 && source ${CHDLAB_PATH}/.virtualenv/bin/activate && ${CHDLAB_PATH}/.virtualenv/bin/chdlab $@
+	#deactivate only if wasn't in virtual env to begin with
+	[ -z "$virtual" ] && deactivate
+}
+
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+# fix ssh git variant after git upgrade
+export GIT_SSH_VARIANT=ssh
+
+# Required for YOCTO compilation 
+umask u+rwx,a+rx
+
+export https_proxy='http://proxy-iil.intel.com:911'
+export http_proxy='http://proxy-iil.intel.com:911'
+export ftp_proxy='http://proxy-iil.intel.com:911'
+#export ALL_PROXY='socks://proxy-socks.iil.intel.com:1080/'
+#export all_proxy='socks://proxy-socks.iil.intel.com:1080/'
+export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16,.intel.com,.lantiq.com
+
+#UGW external toolchain support
+export TOOLCHAIN_MIPS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2_linux_3_10"
+export TOOLCHAIN_X86_GCC_72="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/i686-nptl-linux-gnu"
+export TOOLCHAIN_X86_GCC_72_SPECS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/specs-7.1.0-openwrt"
+
+source ${env_dir}/.aliases.common
+
+if [ -r "$HOME/.aliases" ]; then
+  . $HOME/.aliases
+fi
+
+setproxy() {
+  if [ ! -z "$1" -a "$1" = "1" ]; then
+        export {http,ftp}_proxy="http://proxy-iil.intel.com:911"
+        export {https,ftps}_proxy="http://proxy-iil.intel.com:911"
+        export socks_proxy="http://proxy-iil.intel.com:1080"
+        # Enable below line to allow local traffic
+        #export no_proxy="intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,127.0.0.0/8,134.134.0.0/16,mts.lantiq.com"
+        echo "Testing Proxy with www.google.com..";
+        wget -q -O - www.google.com|grep -qi "Google.*Search" && {
+                echo "Proxy set properly..!";
+        } || {
+                echo -en "Proxy testing failed..!\nNo internet connection or Check proxy settings.\n";
+        }
+  else
+        unset http_proxy ftp_proxy https_proxy
+        echo "Removed Proxy.."
+  fi;
+}
+
