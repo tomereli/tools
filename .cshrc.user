@@ -1,4 +1,4 @@
 #ONLY CREATE THIS FILE IN ICSL SERVERS!!!
-if [ -r "/nfs/site/proj/chdsw/dev/common/wcci_tools2/.cshrc.common" ]; then
-	. /nfs/site/proj/chdsw/dev/common/wcci_tools2/.cshrc.common
-fi
+if (-r /nfs/iil/proj/chdsw/dev/common/wcci_tools2/.cshrc.common) then
+  source /nfs/iil/proj/chdsw/dev/common/wcci_tools2/.cshrc.common
+endif
