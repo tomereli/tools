@@ -132,6 +132,7 @@ function set_multiap_env()
 	alias mapf="cd ${map_root}/framework"
 	alias mapt="cd ${map_root}/tools"
 	alias maptools="${map_root}/tools/maptools.sh"
+	alias map_build_deploy_rdkb='maptools build all -f PASSIVE_MODE=ON;maptools deploy all --pack-only;chdlab copy $rdkb_root/sdk/multiap/build/pack/{deploy_rdkb.sh,multiap_deploy.tar.gz} to GW -P 5556'
 }
 
 function set_cvbuilder_env()
@@ -157,9 +158,10 @@ function set_cvbuilder_env()
 
 function rdkb_copy_image()
 {
-	local tftp=${1-10.124.123.56}
+	local image=$1
+	local tftp=${2-10.124.123.56}
 	local build_dir=${rdkb_root}/atom_rdkbos/build
-	local image=$(ls -Art ${build_dir}/tmp/deploy/images/puma7-atom/*image\.*.uimg | tail -n 1)
+	[ -z "$image" ] && image=$(ls -Art ${build_dir}/tmp/deploy/images/puma7-atom/*image\.*.uimg | tail -n 1)
 	echo "copy to tftp: sshpass -p libit scp $image libit@10.124.123.56:/tftpboot/localDisk/users/$USER/atom.uimg"
 	sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/atom.uimg
 }
