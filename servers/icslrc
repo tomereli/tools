@@ -1,5 +1,5 @@
 export LOCAL_HOME=/local/$USER
-export KLOCKWORK_PATH=/nfs/site/proj/chdsw/dev/common/kw18.3_desktop/bin
+export KLOCKWORK_PATH=/nfs/site/proj/chdsw_ci/common/kw/klocwork_12_3/user/bin
 export CHDLAB_PATH=/nfs/site/proj/chdsw/dev/common/chdlab
 #UGW external toolchain support
 export TOOLCHAIN_MIPS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2_linux_3_10"
