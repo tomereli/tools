@@ -38,6 +38,7 @@ MOUNT_DIRS=(/opt)
 TELNET_PORT=23
 SSH_PORT=22
 LD_LIBRARY_PATH=/tmp/usr/lib
+FORCE=
 VERBOSE=
 
 function test_is_script_sourced()
@@ -92,7 +93,7 @@ function umount_dir()
     fi
 
     if [ -n "$pids" ]; then
-        [ -z $force ] && error "umount $dir requires killing of running process but force not set, aborting!" && return 1
+        [ -z $FORCE ] && error "umount $dir requires killing of running process but force not set, aborting!" && return 1
         warning "killing all pids using $dir"
 	    for p in ${pids_uniq[@]}; do
 		    echo "kill -9 $p"
