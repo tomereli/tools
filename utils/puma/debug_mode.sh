@@ -73,8 +73,8 @@ Positional:
 Options:
     -m|--mount <dir>                  - mount-copybind /tmp/<dir> on <dir> unless mounted and processes are running from the mountpoint.
     -f|--force                        - kills all processes running on the mountpoint when mounting, restarts telnet and ssh, etc.
-    -t|--telnet-port <port>           - enable/disable telnet on port <port> (default 23)
-    -s|--ssh-port <port>              - enable/disable ssh on port <port>    (default 22)
+    -t|--telnet-port <port>           - Use telnet port <port> (instead of the default 23)
+    -s|--ssh-port <port>              - Use ssh port <port> (instead of the default 22)
     -l|--ld-library <path>            - mount will use different path for export LD_LIBRARY_PATH=<path>. Default is /tmp/usr/lib (Note - script needs to be sourced)
     -v|--verbose                      - print additional messages during setup.
     -h|--help                         - print this message and exit."
