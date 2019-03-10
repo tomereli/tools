@@ -123,8 +123,8 @@ function ugw_set_multiap_source_dir()
 
 function set_multiap_env()
 {
-	export map_root=${1-${env_root}}
-	echo "multiap SDK discovered!"
+	export map_root=${1-PWD}
+	echo "multiap SDK discovered (${map_root})"
 	alias map="cd ${map_root}"
 	alias mapc="cd ${map_root}/common"
 	alias mapcc="cd ${map_root}/controller"
@@ -132,67 +132,68 @@ function set_multiap_env()
 	alias mapf="cd ${map_root}/framework"
 	alias mapt="cd ${map_root}/tools"
 	alias maptools="${map_root}/tools/maptools.sh"
-	alias map_build_deploy_rdkb='maptools build all -f PASSIVE_MODE=ON;maptools deploy all --pack-only;chdlab copy $rdkb_root/sdk/multiap/build/pack/{deploy_rdkb.sh,multiap_deploy.tar.gz} to GW -P 5556'
+	alias map_build_deploy_rdkb='maptools build all -f PASSIVE_MODE=ON;maptools deploy all --pack-only;chdlab copy $rdkb_atom_root/sdk/multiap/build/pack/{deploy_rdkb.sh,multiap_deploy.tar.gz} to GW -P 5556'
 }
 
-function set_cvbuilder_env()
-{
-	local cvbuilder_root=${env_root}/cvbuilder
-	#local ugw_root=
-
-	dirs=($(ls -td ${cvbuilder_root}/*/))
-
-	for dir in "${dirs[@]}"
-	do
-		if [ -e ${dir}/ugw_sw/.ugw_ref_states_git ]; then
-			ugw_root=${dir}/ugw_sw
-			break
-		fi
-	done
-
-	[[ -z $ugw_root ]] && return
-	echo "cvbuilder SDK discovered!"
-	alias cvb="cd $cvbuilder_root"
-	set_ugw_git_env $ugw_root
-}
-
-function rdkb_copy_image()
+function rdkb_copy_atom_image()
 {
 	local image=$1
 	local tftp=${2-10.124.123.56}
-	local build_dir=${rdkb_root}/atom_rdkbos/build
+	local build_dir=${rdkb_atom_root}/atom_rdkbos/build
 	[ -z "$image" ] && image=$(ls -Art ${build_dir}/tmp/deploy/images/puma7-atom/*image\.*.uimg | tail -n 1)
 	echo "copy to tftp: sshpass -p libit scp $image libit@10.124.123.56:/tftpboot/localDisk/users/$USER/atom.uimg"
 	sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/atom.uimg
 }
 
-function set_rdkb_aliases()
+function rdkb_copy_arm_image()
 {
-	export sdk_dir=${rdkb_root}/sdk
-	set_multiap_env ${rdkb_root}/sdk/multiap
-
-	alias b='cd ${rdkb_root}/atom_rdkbos/build'
-	alias m='cd ${rdkb_root}/atom_rdkbos/meta-rdk-soc-intel-puma7'
-	alias s='cd ${sdk_dir}'
-	alias dpal='cd ${rdkb_root}/sdk/wav-dpal'
-	alias spal='cd ${rdkb_root}/sdk/wav-spal'
-	alias metamap='cd ${rdkb_root}/atom_rdkbos/meta-rdk-soc-intel-puma7/meta-multiap'
+	local image=$1
+	local tftp=${2-10.124.123.56}
+	local build_dir=${rdkb_arm_root}/setup/build
+	[ -z "$image" ] && image=$(ls -Art ${build_dir}/tmp-glibc/deploy/images/puma/*.puma7.uimg | tail -n 1)
+	echo "copy to tftp: sshpass -p libit scp $image libit@10.124.123.56:/tftpboot/localDisk/users/$USER/arm.uimg"
+	sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/arm.uimg
 }
 
-function set_rdkb_env()
+function set_rdkb_atom_aliases()
 {
-	echo "RDKB SDK discovered!"
-	export rdkb_root=${env_root}/rdkb
-	set_rdkb_aliases
+	export rdkb_arom_sdk_dir=${rdkb_atom_root}/sdk
+	set_multiap_env ${rdkb_atom_root}/sdk/multiap
+
+	alias b='cd ${rdkb_atom_root}/atom_rdkbos/build'
+	alias m='cd ${rdkb_atom_root}/atom_rdkbos/meta-rdk-soc-intel-puma7'
+	alias s='cd ${rdkb_atom_sdk_dir}'
+	alias dpal='cd ${rdkb_atom_root}/sdk/wav-dpal'
+	alias spal='cd ${rdkb_atom_root}/sdk/wav-spal'
+	alias metamap='cd ${rdkb_atom_root}/atom_rdkbos/meta-rdk-soc-intel-puma7/meta-multiap'
+}
+
+function set_rdkb_arm_aliases()
+{
+	export rdkb_arm_sdk_dir=${rdkb_arm_root}/sdk
+	alias arms='cd ${rdkb_arm_sdk_dir}'
+	alias armb='cd ${rdkb_arm_root}/setup/build'
+}
+
+function set_rdkb_atom_env()
+{
+	echo "RDKB ATOM SDK discovered ($PWD)"
+	export rdkb_atom_root=$PWD
+	set_rdkb_atom_aliases
+}
+
+function set_rdkb_arm_env()
+{
+	echo "RDKB ARM SDK discovered ($PWD)"
+	export rdkb_arm_root=$PWD
+	set_rdkb_arm_aliases
 }
 
 function set_ugw_git_env()
 {
-	local __ugw_root=${1-${env_root}}
-	[[ ! -e ${__ugw_root}/.ugw_ref_states_git ]] && return
-	echo "UGW git SDK discovered!"
+	echo "UGW git SDK discovered ($PWD)"
 
-	export ugw_root=${__ugw_root}
+	export ugw_root=$PWD/ugw_sw
 	export ugw_sdk="ugw-git"
 	export ugw_tag=$(cd ${ugw_root} && git describe --tags && cd -)
 	export ugw_model="$(cat ${ugw_root}/ugw/openwrt/core/active_config | cut -d'/' -f 4 | awk '{print tolower($0)}')"
@@ -219,6 +220,33 @@ function show_git_env()
 	echo "UGW_CORE_DIR: ${UGW_CORE_DIR}"
 }
 
+
+function is_rdkb_arm()
+{
+	[[ -d .repo ]] && {
+    	if repo &> /dev/null && repo manifest | grep rdkb &> /dev/null && ! repo manifest | grep wlan  &> /dev/null; then return 0; else return 1; fi
+	} || return 1
+}
+
+function is_rdkb_atom()
+{
+	[[ -d .repo ]] && {
+    	if repo &> /dev/null && repo manifest | grep rdkb &> /dev/null && repo manifest | grep wlan  &> /dev/null; then return 0; else return 1; fi
+	} || return 1
+}
+
+function is_ugw()
+{
+	[[ -d .repo ]] && {
+    	if repo &> /dev/null && repo manifest | grep 'default remote="sw_ugw"' &> /dev/null; then return 0; else return 1; fi
+	} || return 1
+}
+
+function is_map_standalone()
+{
+    if [ -e ./multiap ]; then return 0; else return 1; fi
+}
+
 function set_git_env()
 {
 	export env_root=`pwd -P`
@@ -226,12 +254,19 @@ function set_git_env()
 	setgit
 	alias r="cd ${env_root}"
 	echo "Git Env was set, trying to guess SDK..."
-	
-	[[ -e ${env_root}/map/.repo ]] && set_multiap_env ${env_root}/map/multiap
-	[[ -e ${env_root}/rdkb/.repo ]] && set_rdkb_env && return
-	[[ -e ${env_root}/cvbuilder/wlan_build.config ]] && set_cvbuilder_env && return
-	[[ -e ${env_root}/ugw/ugw_sw/.ugw_ref_states_git ]] && set_ugw_git_env ${env_root}/ugw/ugw_sw/ && return
-	[[ -e ${env_root}/.ugw_ref_states_git ]] && set_ugw_git_env && return
+	for d in . */; do
+		cd $d &> /dev/null
+		if is_rdkb_arm; then
+			set_rdkb_arm_env
+		elif is_rdkb_atom; then
+			set_rdkb_atom_env
+		elif is_ugw; then
+			set_ugw_git_env
+		elif is_map_standalone; then
+			set_multiap_env $PWD/multiap
+		fi
+		cd - &> /dev/null
+	done
 }
 
 function repo_delete_all_branches()
