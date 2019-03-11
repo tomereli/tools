@@ -68,19 +68,8 @@ function set_ugw_aliases()
 	local wav500=$(config_value "$dotconfig" CONFIG_PACKAGE_ltq-wlan-wave_5_x)
 
 	alias u="cd ${ugw_dir}"
-	alias l="cd ${linux_dir}"
 	alias c="cd ${ugw_dir}/openwrt/core"
 	alias cc="cd ${ugw_dir}/config_cpe"
-	alias t="cd ${ugw_dir}/target"
-	alias s="cd ${ugw_dir}/../../standalone"
-	alias m="cd ${ugw_dir}/../../.repo/manifests"
-	alias slg="cd ${ugw_dir}/ugw_components/sl_components/sl_guest_access"
-	alias slc="cd ${ugw_dir}/ugw_components/sl_components/sl_client_mode"
-	alias sys="cd ${ugw_dir}/ugw_components/system_service/fapi_system/src"
-	alias pp="cd ${ugw_dir}/feed_puma_components/packages/pp_drv/src"
-	alias pdsp="cd ${ugw_dir}/feed_puma_components/packages/pdsp_drv/src"
-	alias hil="cd ${ugw_dir}/feed_puma_components/packages/hil_drv/src"
-	alias lpal="cd ${ugw_dir}/feed_puma_components/packages/puma_lpal/src"
 	alias toe="cd ${ugw_dir}/feed_puma_components/packages/toe_drv/src"
 	alias ppa="cd ${ugw_dir}/drivers/ppa_drv/src"
 	alias qos="cd ${ugw_dir}/ugw_components/qos_service"
@@ -92,9 +81,6 @@ function set_ugw_aliases()
 
 	# multiap aliases
 	alias fmap="cd ${ugw_dir}/feed_multiap"
-	alias fmapf="cd ${ugw_dir}/feed_multiap/multiap_framework"
-	alias fmapc="cd ${ugw_dir}/feed_multiap/multiap_common"
-	alias fbeer="cd ${ugw_dir}/feed_beerocks"
 
 	# wlan aliases
 	if [ "$wav600" == "y" ]; then
