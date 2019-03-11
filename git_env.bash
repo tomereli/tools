@@ -250,7 +250,6 @@ function is_map_standalone()
 function set_git_env()
 {
 	export env_root=`pwd -P`
-	source ${env_dir}/git_env.bash
 	setgit
 	alias r="cd ${env_root}"
 	echo "Git Env was set, trying to guess SDK..."
