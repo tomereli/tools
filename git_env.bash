@@ -143,7 +143,7 @@ function rdkb_copy_arm_image()
 
 function set_rdkb_atom_aliases()
 {
-	export rdkb_arom_sdk_dir=${rdkb_atom_root}/sdk
+	export rdkb_atom_sdk_dir=${rdkb_atom_root}/sdk
 	set_multiap_env ${rdkb_atom_root}/sdk/multiap
 
 	alias b='cd ${rdkb_atom_root}/atom_rdkbos/build'
