@@ -73,7 +73,7 @@ function set_ugw_aliases()
 	alias toe="cd ${ugw_dir}/feed_puma_components/packages/toe_drv/src"
 	alias ppa="cd ${ugw_dir}/drivers/ppa_drv/src"
 	alias qos="cd ${ugw_dir}/ugw_components/qos_service"
-	alias b="cd ${build_dir}"
+	alias ub="cd ${build_dir}"
 	alias p="cd ${platform_dir}"
 	alias kp="cd ${ugw_dir}/puma_kernel_patches"
 	alias k="cd ${ugw_dir}/openwrt/core/kernel_tree"
