@@ -306,7 +306,7 @@ function ugw_prepare_clean()
 				echo "	-b feature_branch	checkout to feature branch before prepare"
 				echo "	-m model		switch to selected model"
 				echo "		supported models:"
-				echo "			axepoint 		- GRX350_1600_MR_AXEPOINT_6X_WAV600_ETH_RT_74"
+				echo "			axepoint 		- GRX350_1600_MR_AXEPOINT_6X_WAV600_ETH_RT_74_MAP"
 				echo "			gw/grx350 		- GRX350_1600_MR_ETH_RT_72/3/4"
 				echo "			gw_map 			- GRX350_1600_MR_ETH_RT_MAP_72/3/4"
 				echo "			gw_1200/grx350_1200 	- GRX350_1200_MR_ETH_RT_72/3"
@@ -325,7 +325,7 @@ function ugw_prepare_clean()
 				;;
 			m) case $OPTARG in
 				axepoint)
-					model=./ugw/config/GRX350_1600_MR_AXEPOINT_6X_WAV600_ETH_RT_"$model_suffix"
+					model=./ugw/config/GRX350_1600_MR_AXEPOINT_6X_WAV600_ETH_RT_"$model_suffix"_MAP
 					;;
 				gw_map)
 					model=./ugw/config/GRX350_1600_MR_ETH_RT_MAP_"$model_suffix"

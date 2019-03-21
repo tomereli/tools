@@ -60,16 +60,16 @@ function _set_git_envar_info {
             STATUS="alarmed"
         fi
 
-        GIT_LEADER=":"
+        GIT_LEADER=" "
         GIT_BRANCH="$(\git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
-        GIT_HEAD=":$(\git log -n1 --pretty=format:%h 2>/dev/null)"
+        GIT_HEAD=" $(\git log -n1 --pretty=format:%h 2>/dev/null)"
         GIT_REPO="$(\git rev-parse --show-toplevel 2>/dev/null | awk -F/ '{print $NF}')"
 
         if [[ "$STATUS" == *'working directory clean'* ]]
         then
             GIT_STATE=""
         else
-            GIT_HEAD=$GIT_HEAD":"
+            GIT_HEAD=$GIT_HEAD""
             GIT_STATE=""
             if [[ "$STATUS" == *'Changes to be committed:'* ]]
             then
