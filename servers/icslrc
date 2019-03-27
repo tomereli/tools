@@ -1,6 +1,7 @@
 export LOCAL_HOME=/local/$USER
 export KLOCKWORK_PATH=/nfs/site/proj/chdsw_ci/common/kw/klocwork_12_3/user/bin
 export CHDLAB_PATH=/nfs/site/proj/chdsw/dev/common/chdlab
+export WCCI_COMMON_PATH=/nfs/site/proj/chdsw/dev/common/wcci_common
 #UGW external toolchain support
 export TOOLCHAIN_MIPS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2_linux_3_10"
 export TOOLCHAIN_X86_GCC_72="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/i686-nptl-linux-gnu"

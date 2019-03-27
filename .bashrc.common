@@ -105,6 +105,22 @@ if ( ! (echo $PATH | grep -c -q "$KLOCKWORK_PATH") ); then
     export PATH=$KLOCKWORK_PATH:$PATH
 fi
 
+if ( ! (echo $PATH | grep -c -q "${WCCI_COMMON_PATH}") ); then
+    export PATH=${WCCI_COMMON_PATH}:$PATH
+fi
+
+if ( ! (echo $PATH | grep -c -q "${WCCI_COMMON_PATH}/bin") ); then
+    export PATH=${WCCI_COMMON_PATH}/bin:$PATH
+fi
+
+if ( ! (echo $MANPATH | grep -c -q "${WCCI_COMMON_PATH}/share/man") ); then
+    export MANPATH=${WCCI_COMMON_PATH}/share/man:$MANPATH
+fi
+
+if ( ! (echo $PKG_CONFIG_PATH | grep -c -q ":${WCCI_COMMON_PATH}/lib/pkgconfig") ); then
+    export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${WCCI_COMMON_PATH}/lib/pkgconfig
+fi
+
 function chdlab()
 {
 	local virtual="$VIRTUAL_ENV"
