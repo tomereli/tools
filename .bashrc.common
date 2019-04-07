@@ -121,6 +121,10 @@ if ( ! (echo $PKG_CONFIG_PATH | grep -c -q ":${WCCI_COMMON_PATH}/lib/pkgconfig")
     export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${WCCI_COMMON_PATH}/lib/pkgconfig
 fi
 
+if ( ! (echo $LD_LIBRARY_PATH | grep -c -q ":${WCCI_COMMON_PATH}/lib/") ); then
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${WCCI_COMMON_PATH}/lib/
+fi
+
 function chdlab()
 {
 	local virtual="$VIRTUAL_ENV"

@@ -6,11 +6,15 @@ function echr()
 	echo -e '\033[1;31m'"$@"'\033[0m'
 }
 
+function echy()
+{
+	echo -e '\033[1;33m'"$@"'\033[0m'
+}
+
 function echb()
 {
 	echo -e '\033[1;34m'"$@"'\033[0m'
 }
-
 
 function setgit()
 {
@@ -286,6 +290,93 @@ function repo_model_suffix()
 	[[ -n $(repo manifest | grep default | grep revision | grep '7.4.') ]] && echo '74' || echo '73'
 }
 
+function wlan_prepare_clean()
+{
+	local root=$PWD OPTIND=1 branch="06.01.00"
+
+	usage() {
+		echo "usage: wlan_prepare_clean <target> [-h] [-b <branch>]"
+		echo "Prepare wlan environment for ugw/rdkb-atom/rdkb-arm"
+		echo "positional arguments:"
+		echo "	target		ugw/atom/rdkb"
+		echo "optional arguments:"
+		echo "	-h				display this help and exit"
+		echo "	-b branch		branch name (default 06.01.00)"
+	}
+
+	while getopts hb: opt; do
+		case $opt in
+			h) usage; return 1
+				;;
+			b) branch=$OPTARG
+				;;
+			*) echr "unsupported argument $OPTARG"; usage; return 1
+				;;
+		esac
+	done
+	shift $((OPTIND-1))
+	target=${1-atom}
+	echo "root=$root, branch=$branch, target=$target"
+	while true; do
+		read -p "Do you wish to continue?" yn
+		case $yn in
+			[Yy]*) break
+				;;
+			[Nn]*) echr "aborted"; return 0
+				;;
+			* ) echo "Please answer yes or no."
+				;;
+		esac
+	done
+
+	case $target in
+		arm|rdkb-arm)
+			echy "wlan_prepare_clean rdkb-arm..."
+			echb "rm -rf rdkb-arm && mkdir rdkb-arm && cd rdkb-arm" && \
+			rm -rf rdkb-arm && mkdir rdkb-arm && cd rdkb-arm && \
+			echb "repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=arm,rdkb-arm,atom-arm,-rdkb,-atom,-wlan" && \
+			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=arm,rdkb-arm,atom-arm,-rdkb,-atom,-wlan &&
+			echb "repo sync -d -j24" && repo sync -d -j24 && \
+			echb "cd setup && source arm_setup -d && genconf ../defconfig/p7_rdkb_pc2.0_dev-debug.config" && \
+			cd setup && source arm_setup -d && genconf ../defconfig/p7_rdkb_pc2.0_dev-debug.config && \
+			echb "bitbake virtual/core-image-gateway" && bitbake virtual/core-image-gateway
+			echy "Done"
+			;;
+		atom|rdkb-atom)
+			echy "wlan_prepare_clean rdkb-atom..."
+			echb "rm -rf rdkb-atom && mkdir rdkb-atom && cd rdkb-atom" && \
+			rm -rf rdkb-atom && mkdir rdkb-atom && cd rdkb-atom && \
+			echb "repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=all,-arm,-vanilla --repo-url ssh://git@gts-chd.intel.com:29418/sw_wave/git-repo.git --no-repo-verify" && \
+			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=all,-arm,-vanilla --repo-url ssh://git@gts-chd.intel.com:29418/sw_wave/git-repo.git --no-repo-verify && \
+			echb "repo sync -d -j24" && \
+			repo sync -d -j24 && \
+			echb "ln -s atom-setup setup && cd setup && source puma_setup -c configs/p7_atom_rdkbos_dev-debug.config" && \
+			ln -s atom-setup setup && cd setup && source puma_setup -c configs/p7_atom_rdkbos_dev-debug.config && \
+			echb "bitbake rdk-generic-broadband-image" && bitbake rdk-generic-broadband-image
+			echy "Done"
+  			;;
+		axepoint|ugw)
+			echy "wlan_prepare_clean ugw..."
+			echo "rm -rf ugw && mkdir ugw && cd ugw" && \
+			rm -rf ugw && mkdir ugw && cd ugw && \
+			echb "repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_ugw-7.5.0.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_ugw/7.5.0" && \
+			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_ugw-7.5.0.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_ugw/7.5.0 && \
+			echb "repo sync -j24" && \
+			repo sync -j24 && \
+			echb "cd ugw_sw/ugw/openwrt/core && ../../config_cpe/ugw-prepare-all.sh" && \
+			cd ugw_sw/ugw/openwrt/core && ../../config_cpe/ugw-prepare-all.sh && \
+			echb "./scripts/ltq_change_environment.sh switch ../../config_cpe/ugw_5_x/GRX350_1600_MR_AXEPOINT_6X_WAV600_ETH_RT_74_MAP" && \
+			./scripts/ltq_change_environment.sh switch ../../config_cpe/ugw_5_x/GRX350_1600_MR_AXEPOINT_6X_WAV600_ETH_RT_74_MAP && \
+			echb "/nfs/site/proj/chdsw/dev/common/wcci_tools2/ltq_set_ext_toolchain.sh" && \
+			/nfs/site/proj/chdsw/dev/common/wcci_tools2/ltq_set_ext_toolchain.sh && \
+			echb "make -j24" && make -j24
+			echy "Done"
+			;;
+		*) echr "Invalid target \"$1\""; usage; return 1
+			;;
+	esac
+}
+
 function ugw_prepare_clean()
 {
 	local OPTIND=1 delete=1 toolchain=1 model= branch=
@@ -300,7 +391,7 @@ function ugw_prepare_clean()
 			h)
 				echo "usage: ugw_prepare_clean [-h] [-m target] [-f feature_branch] [-t enable_ext_toolchain] [-d delete_local_branches]"
 				echo "Prepare ugw environement- clean, prepare, switch, set external toolchain, etc"
-				echo "	-h			displat this help and exit"
+				echo "	-h			display this help and exit"
 				echo "	-d 0/1			(default 1) delete all local branches, checkout modified files and discard untracked files prior to prepare"
 				echo "	-t 0/1			(default 1) enable/disable external toolchain"
 				echo "	-b feature_branch	checkout to feature branch before prepare"
