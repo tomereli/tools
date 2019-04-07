@@ -332,8 +332,11 @@ function wlan_prepare_clean()
 	case $target in
 		arm|rdkb-arm)
 			echy "wlan_prepare_clean rdkb-arm..."
-			echb "rm -rf rdkb-arm && mkdir rdkb-arm && cd rdkb-arm" && \
-			rm -rf rdkb-arm && mkdir rdkb-arm && cd rdkb-arm && \
+			tmpdir=$(mktemp -p . -d)
+			echb "mv rdkb-arm $tmpdir && nohup rm -rf $tmpdir &"
+			mv rdkb-arm $tmpdir;nohup rm -rf $tmpdir &
+			echo "mkdir rdkb-arm && cd rdkb-arm" && \
+			mkdir rdkb-arm && cd rdkb-arm && \
 			echb "repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=arm,rdkb-arm,atom-arm,-rdkb,-atom,-wlan" && \
 			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=arm,rdkb-arm,atom-arm,-rdkb,-atom,-wlan &&
 			echb "repo sync -d -j24" && repo sync -d -j24 && \
@@ -344,8 +347,11 @@ function wlan_prepare_clean()
 			;;
 		atom|rdkb-atom)
 			echy "wlan_prepare_clean rdkb-atom..."
-			echb "rm -rf rdkb-atom && mkdir rdkb-atom && cd rdkb-atom" && \
-			rm -rf rdkb-atom && mkdir rdkb-atom && cd rdkb-atom && \
+			tmpdir=$(mktemp -p . -d)
+			echb "mv rdkb-atom $tmpdir && nohup rm -rf $tmpdir &"
+			mv rdkb-atom $tmpdir;nohup rm -rf $tmpdir &
+			echb "mkdir rdkb-atom && cd rdkb-atom" && \
+			mkdir rdkb-atom && cd rdkb-atom && \
 			echb "repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=all,-arm,-vanilla --repo-url ssh://git@gts-chd.intel.com:29418/sw_wave/git-repo.git --no-repo-verify" && \
 			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=all,-arm,-vanilla --repo-url ssh://git@gts-chd.intel.com:29418/sw_wave/git-repo.git --no-repo-verify && \
 			echb "repo sync -d -j24" && \
@@ -357,8 +363,11 @@ function wlan_prepare_clean()
   			;;
 		axepoint|ugw)
 			echy "wlan_prepare_clean ugw..."
-			echo "rm -rf ugw && mkdir ugw && cd ugw" && \
-			rm -rf ugw && mkdir ugw && cd ugw && \
+			tmpdir=$(mktemp -p . -d)
+			echb "mv ugw $tmpdir && nohup rm -rf $tmpdir &"
+			mv ugw $tmpdir;nohup rm -rf $tmpdir &
+			echo "mkdir ugw && cd ugw" && \
+			mkdir ugw && cd ugw && \
 			echb "repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_ugw-7.5.0.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_ugw/7.5.0" && \
 			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_ugw-7.5.0.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_ugw/7.5.0 && \
 			echb "repo sync -j24" && \
