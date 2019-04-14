@@ -101,6 +101,10 @@ if ( ! (echo $PATH | grep -c -q ":~/bin") ); then
 	export PATH=$PATH:~/bin
 fi
 
+if ( ! (echo $PATH | grep -c -q ":~/usr/bin") ); then
+	export PATH=$PATH:~/usr/bin
+fi
+
 if ( ! (echo $PATH | grep -c -q "$KLOCKWORK_PATH") ); then
     export PATH=$KLOCKWORK_PATH:$PATH
 fi
