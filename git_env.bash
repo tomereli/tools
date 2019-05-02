@@ -125,6 +125,11 @@ function set_multiap_env()
 	alias map_build_deploy_rdkb='maptools build all -f PASSIVE_MODE=ON;maptools deploy all --pack-only;chdlab copy $rdkb_atom_root/sdk/multiap/build/pack/{deploy_rdkb.sh,multiap_deploy.tar.gz} to GW -P 5556'
 }
 
+function copy2G()
+{
+	scp $@ tlvrsb0002.iil.intel.com:/home/Wireless/lab/$USER/
+}
+
 function rdkb_copy_atom_image()
 {
 	local image=$1
