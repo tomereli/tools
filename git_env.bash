@@ -133,21 +133,28 @@ function copy2G()
 function rdkb_copy_atom_image()
 {
 	local image=$1
-	local tftp=${2-10.124.123.56}
+	local tftps=(10.124.123.56 10.124.123.91)
 	local build_dir=${rdkb_atom_root}/atom_rdkbos/build
 	[ -z "$image" ] && image=$(ls -Art ${build_dir}/tmp/deploy/images/puma7-atom/*image\.*.uimg | tail -n 1)
-	echo "copy to tftp: sshpass -p libit scp $image libit@10.124.123.56:/tftpboot/localDisk/users/$USER/atom.uimg"
-	sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/atom.uimg
+
+	for tftp in ${tftps[@]}; do
+		echo "copy to tftp: sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/atom.uimg"
+		sshpass -p libit ssh libit@$tftp mkdir -p /tftpboot/localDisk/users/$USER
+		sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/atom.uimg
+	done
 }
 
 function rdkb_copy_arm_image()
 {
 	local image=$1
-	local tftp=${2-10.124.123.56}
+	local tftps=(10.124.123.56 10.124.123.91)
 	local build_dir=${rdkb_arm_root}/setup/build
 	[ -z "$image" ] && image=$(ls -Art ${build_dir}/tmp-glibc/deploy/images/puma/*.puma7.uimg | tail -n 1)
-	echo "copy to tftp: sshpass -p libit scp $image libit@10.124.123.56:/tftpboot/localDisk/users/$USER/arm.uimg"
-	sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/arm.uimg
+	for tftp in ${tftps[@]}; do
+		echo "copy to tftp: sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/arm.uimg"
+		sshpass -p libit ssh libit@$tftp mkdir -p /tftpboot/localDisk/users/$USER
+		sshpass -p libit scp $image libit@$tftp:/tftpboot/localDisk/users/$USER/arm.uimg
+	done
 }
 
 function set_rdkb_atom_aliases()
