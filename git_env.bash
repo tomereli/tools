@@ -368,8 +368,8 @@ function wlan_prepare_clean()
 			repo init --no-clone-bundle -u ssh://git@gts-chd.intel.com:29418/sw_wave/manifest.git -b ${branch} -m ${branch}_rdkb-puma7_unified.xml --reference /nfs/site/proj/chdsw_ci/repo_mirror/sw_atom/master --groups=all,-arm,-vanilla --repo-url ssh://git@gts-chd.intel.com:29418/sw_wave/git-repo.git --no-repo-verify && \
 			echb "repo sync -d -j24" && \
 			repo sync -d -j24 && \
-			echb "ln -s atom-setup setup && cd setup && source puma_setup -c configs/p7_atom_rdkbos_dev-debug.config" && \
-			ln -s atom-setup setup && cd setup && source puma_setup -c configs/p7_atom_rdkbos_dev-debug.config && \
+			echb "ln -s atom-setup setup && cd setup && source puma_setup -c configs/p7_atom_rdkbos_wave600_dev-debug.config" && \
+			ln -s atom-setup setup && cd setup && source puma_setup -c configs/p7_atom_rdkbos_wave600_dev-debug.config && \
 			echb "bitbake rdk-generic-broadband-image" && bitbake rdk-generic-broadband-image
 			echy "Done"
   			;;
