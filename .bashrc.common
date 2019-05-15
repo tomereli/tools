@@ -9,6 +9,8 @@ if [[ "$HOSTNAME" == "elitpts10" ]]; then
 	source ${env_dir}/servers/elitptsrc
 elif [[ "$HOSTNAME" == "icsl"* ]]; then
 	source ${env_dir}/servers/icslrc
+else
+	source ${env_dir}/servers/genericrc
 fi
 
 function vs()
