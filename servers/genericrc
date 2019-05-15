@@ -1,1 +1,2 @@
 export LOCAL_HOME=~/work
+export VSCODE_COMMAND="/usr/bin/code"
