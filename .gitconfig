@@ -8,6 +8,7 @@
 	editor = vi
 	autocrlf = input
 	pager = cat
+	excludesfile = /home/tbeliyah/.gitignore
 
 [apply]
 	ignorewhitespace = change
@@ -26,3 +27,11 @@
 
 [http]
 	sslverify = false
+
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+
+[url "https://github.com/"]
+	insteadOf = ssh://git@github.com/
+[format]
+	signoff = true
