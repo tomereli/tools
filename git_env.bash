@@ -249,6 +249,11 @@ function is_map_standalone()
     if [ -e ./multiap ]; then return 0; else return 1; fi
 }
 
+function is_prplMesh_standalone()
+{
+    if [ -e ./prplMesh ]; then return 0; else return 1; fi
+}
+
 function set_git_env()
 {
 	export env_root=`pwd -P`
@@ -265,6 +270,8 @@ function set_git_env()
 			set_ugw_git_env
 		elif is_map_standalone; then
 			set_multiap_env $PWD/multiap
+		elif is_prplMesh_standalone; then
+			set_multiap_env $PWD/prplMesh
 		fi
 		cd - &> /dev/null
 	done
