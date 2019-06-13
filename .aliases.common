@@ -28,7 +28,7 @@ alias fgrep='fgrep --color=auto'
 alias gitlog='git log --pretty=format:"%h - %an, %ar : %s" --simplify-merges'
 alias hglog='hg log --template "{node|short} | {date|age} | {author|person}: {desc|strip|firstline}\n"'
 alias hgglog='hg glog --template "{node|short} | {date|age} | {author|person}: {desc|strip|firstline}\n"'
-alias vncservert="vncserver -geometry 1920x1080 -depth 24"
+alias vncservert="vncserver -geometry 1920x1120 -depth 24"
 alias killbg='kill $(jobs -p)'
 # handy short cuts #
 alias j='jobs -l'
