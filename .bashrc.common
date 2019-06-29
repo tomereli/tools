@@ -147,17 +147,17 @@ export GIT_SSH_VARIANT=ssh
 # Required for YOCTO compilation 
 umask u+rwx,a+rx
 
-export https_proxy='http://proxy-iil.intel.com:911'
-export http_proxy='http://proxy-iil.intel.com:911'
-export ftp_proxy='http://proxy-iil.intel.com:911'
+#export https_proxy='http://proxy-iil.intel.com:911'
+#export http_proxy='http://proxy-iil.intel.com:911'
+#export ftp_proxy='http://proxy-iil.intel.com:911'
 #export ALL_PROXY='socks://proxy-socks.iil.intel.com:1080/'
 #export all_proxy='socks://proxy-socks.iil.intel.com:1080/'
-export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16,.intel.com,.lantiq.com
+#export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16,.intel.com,.lantiq.com
 
 #UGW external toolchain support
-export TOOLCHAIN_MIPS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2_linux_3_10"
-export TOOLCHAIN_X86_GCC_72="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/i686-nptl-linux-gnu"
-export TOOLCHAIN_X86_GCC_72_SPECS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/specs-7.1.0-openwrt"
+#export TOOLCHAIN_MIPS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2_linux_3_10"
+#export TOOLCHAIN_X86_GCC_72="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/i686-nptl-linux-gnu"
+#export TOOLCHAIN_X86_GCC_72_SPECS="/nfs/site/proj/chdsw_ci/telco/sw_toolchains/ugw/64bit/toolchain-gcc-7.2-i686-nptl-linux-gnu/specs-7.1.0-openwrt"
 
 source ${env_dir}/.aliases.common
 
