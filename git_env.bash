@@ -19,12 +19,12 @@ function echb()
 function setgit()
 {
 	#load git completion only if not available in the server
-	complete -p | grep git &>/dev/null || {
-		if [ -f ${env_dir}/git-env/git-completion.bash ]; then
-			echo loading git-completion.bash
-			source ${env_dir}/git-env/git-completion.bash
-		fi
-	}
+	# complete -p | grep git &>/dev/null || {
+	# 	if [ -f ${env_dir}/git-env/git-completion.bash ]; then
+	# 		echo loading git-completion.bash
+	# 		source ${env_dir}/git-env/git-completion.bash
+	# 	fi
+	# }
 
 	if [ -f ${env_dir}/git-env/git_prompt.bash ]; then
 		echo loading git_prompt.bash
