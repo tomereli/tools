@@ -1,9 +1,2 @@
-if [[ "$HOSTNAME" == "elitpts10" ]]; then
-	if [ -r "/opt/ugw/wcci_tools/.bashrc.common" ]; then
-		. /opt/ugw/wcci_tools/.bashrc.common
-	fi
-elif [[ "$HOSTNAME" == "icsl"* ]]; then
-	if [ -r "/nfs/site/proj/chdsw/dev/common/wcci_tools2/.bashrc.common" ]; then
-		. /nfs/site/proj/chdsw/dev/common/wcci_tools2/.bashrc.common
-	fi
-fi
+. /home/tbeliyah/bashtools/.bashrc.common
+
