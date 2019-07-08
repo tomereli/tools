@@ -1,6 +1,6 @@
 [user]
-	name = <NAME>
-	email = <EMAIL>
+	email = tomer.b.eliyahu@intel.com
+	name = Tomer Eliyahu
 
 [core]
 	gitProxy = git-proxy
@@ -19,11 +19,8 @@
 [diff]
 	tool = meld
 
-[commit]
-        template = <WCCI DIR in server>/commit-template.txt
-
 [credential]
-	helper = cache
+	helper = store
 
 [http]
 	sslverify = false
