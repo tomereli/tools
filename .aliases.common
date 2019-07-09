@@ -60,3 +60,6 @@ alias df='df -H'
 alias du='du -ch'
 alias gg='cgrep -snir'
 alias cd=cd_func
+
+#slack
+alias slack='slack --proxy-server=proxy-iil.intel.com:911'
