@@ -28,6 +28,8 @@ disable() {
     gsettings set org.gnome.system.proxy mode none
     sudo mv /etc/apt/apt.conf.bak /etc/apt/apt.conf
     sudo mv /etc/environment.bak /etc/environment
+    export http_proxy=
+    export https_proxy=
 }
 
 status() {
