@@ -122,6 +122,7 @@ function set_multiap_env()
 	alias mapf="cd ${map_root}/framework"
 	alias mapt="cd ${map_root}/tools"
 	alias maptools="${map_root}/tools/maptools.sh"
+	alias mapbuild="${map_root}/tools/docker/build.sh"
 	alias map_build_deploy_rdkb='maptools build all -f PASSIVE_MODE=ON;maptools deploy all --pack-only;chdlab copy $rdkb_atom_root/sdk/multiap/build/pack/{deploy_rdkb.sh,multiap_deploy.tar.gz} to GW -P 5556'
 }
 
