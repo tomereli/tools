@@ -252,7 +252,7 @@ function is_map_standalone()
 
 function is_prplMesh_standalone()
 {
-    if [ -e ./prplMesh ]; then return 0; else return 1; fi
+    if [ -L ./prplMesh ]; then return 0; else return 1; fi
 }
 
 function set_git_env()
@@ -261,21 +261,9 @@ function set_git_env()
 	setgit
 	alias r="cd ${env_root}"
 	echo "Git Env was set, trying to guess SDK..."
-	for d in . */; do
-		cd $d &> /dev/null
-		if is_rdkb_arm; then
-			set_rdkb_arm_env
-		elif is_rdkb_atom; then
-			set_rdkb_atom_env
-		elif is_ugw; then
-			set_ugw_git_env
-		elif is_map_standalone; then
-			set_multiap_env $PWD/multiap
-		elif is_prplMesh_standalone; then
-			set_multiap_env $PWD/prplMesh
-		fi
-		cd - &> /dev/null
-	done
+	if is_prplMesh_standalone; then
+		set_multiap_env $PWD
+	fi
 }
 
 function repo_delete_all_branches()
