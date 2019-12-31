@@ -111,19 +111,17 @@ function ugw_set_multiap_source_dir()
 	done	
 }
 
-function set_multiap_env()
+function set_prplmesh_env()
 {
 	export map_root=${1-PWD}
-	echo "multiap SDK discovered (${map_root})"
-	alias map="cd ${map_root}"
-	alias mapc="cd ${map_root}/common"
-	alias mapcc="cd ${map_root}/controller"
-	alias mapca="cd ${map_root}/agent"
-	alias mapf="cd ${map_root}/framework"
-	alias mapt="cd ${map_root}/tools"
-	alias maptools="${map_root}/tools/maptools.sh"
+	echo "prplmesh discovered (${map_root})"
+	alias p="cd ${map_root}"
+	alias c="cd ${map_root}/common"
+	alias cc="cd ${map_root}/controller"
+	alias ca="cd ${map_root}/agent"
+	alias f="cd ${map_root}/framework"
+	alias t="cd ${map_root}/tools"
 	alias mapbuild="${map_root}/tools/docker/build.sh"
-	alias map_build_deploy_rdkb='maptools build all -f PASSIVE_MODE=ON;maptools deploy all --pack-only;chdlab copy $rdkb_atom_root/sdk/multiap/build/pack/{deploy_rdkb.sh,multiap_deploy.tar.gz} to GW -P 5556'
 }
 
 function copy2G()
@@ -262,7 +260,7 @@ function set_git_env()
 	alias r="cd ${env_root}"
 	echo "Git Env was set, trying to guess SDK..."
 	if is_prplMesh_standalone; then
-		set_multiap_env $PWD
+		set_prplmesh_env $PWD
 	fi
 }
 
