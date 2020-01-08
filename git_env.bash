@@ -250,7 +250,8 @@ function is_map_standalone()
 
 function is_prplMesh_standalone()
 {
-    if [ -L ./prplMesh ]; then return 0; else return 1; fi
+	repo_name=$(basename -s .git `git config --get remote.origin.url` 2>/dev/null)
+    if [ "$repo_name" = "prplMesh" ]; then return 0; else return 1; fi
 }
 
 function set_git_env()
