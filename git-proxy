@@ -1,0 +1,7 @@
+#!/bin/bash
+echo $1 | grep "\.intel\.com$" > /dev/null 2>&1
+if [ $?  -eq 0 ]; then
+    connect-proxy $0
+else
+    connect-proxy -S proxy-us.intel.com:1080 $@
+fi

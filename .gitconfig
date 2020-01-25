@@ -1,14 +1,14 @@
 [user]
-	email = tomer.b.eliyahu@intel.com
-	name = Tomer Eliyahu
+	email = user@email.com
+	name = user name
 
 [core]
-	gitProxy = git-proxy
+	gitProxy = /home/<user>/git-proxy
 	gitproxy = none for intel.com
 	editor = vi
 	autocrlf = input
 	pager = cat
-	excludesfile = /home/tbeliyah/.gitignore
+	excludesfile = /home/<user>/.gitignore
 
 [apply]
 	ignorewhitespace = change
