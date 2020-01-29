@@ -184,3 +184,7 @@ setproxy() {
   fi;
 }
 
+get_issues()
+{
+     hub issue --include-pulls -f "%>(5)%i%>(13)%au %<(6)%S %<(40)%t %l%n" -o updated -d $(date -I -d "20 days ago") -s all
+}
