@@ -1,0 +1,191 @@
+############################
+# Intel PTK1 AxePoint Setups
+############################
+
+# Cougerrun
+
+Host cgr1-nuc
+  HostName 10.189.244.192
+  User libit
+
+Host cgr1
+  ProxyJump libit@10.189.244.192
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
+Host cgr2-nuc
+  HostName 10.189.242.218
+  User lab_ran
+
+Host cgr2
+  ProxyJump lab_ran@10.189.242.218
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
+Host cgr3-nuc
+  HostName 10.189.244.139
+  User libit
+
+Host cgr3
+  ProxyJump libit@10.189.244.139
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
+Host cgr4-nuc
+  HostName 10.189.240.83
+  User lab_ran
+
+Host cgr4
+  ProxyJump lab_ran@10.189.240.83
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
+Host cgr5-nuc
+  HostName 10.189.244.129
+  User retail
+
+Host cgr5
+  ProxyJump retail@10.189.244.129
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
+Host cgr6-nuc
+  HostName 10.189.241.38
+  User libit
+
+Host cgr6
+  ProxyJump libit@10.189.241.38
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
+# Nighthawks
+Host nighthawk1-nuc
+  Hostname 10.189.241.12
+  User tester
+
+Host nighthawk1
+  ProxyJump tester@10.189.241.12
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User root
+
+Host nighthawk4-nuc
+  Hostname 10.189.240.133
+  User tester
+
+Host nighthawk4
+  ProxyJump tester@10.189.240.133
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User root
+
+# AxePoints
+Host axepoint22-nuc
+  HostName 10.189.242.216
+  User lab_ran
+
+Host axepoint22
+  ProxyJump lab_ran@10.189.240.178
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User admin
+
+Host axepoint23-nuc
+  HostName 10.189.244.98
+  User lab_ran
+
+Host axepoint23
+  ProxyJump lab_ran@10.189.244.98
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User admin
+
+Host axepoint21-nuc
+  HostName 10.189.240.246
+  User lab_ran
+
+Host axepoint21
+  ProxyJump lab_ran@10.189.240.246
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User admin
+
+Host axepoint20-nuc
+  HostName 10.189.241.106
+  User lab_ran
+
+Host axepoint20
+  ProxyJump lab_ran@10.189.241.106
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User admin
+
+######################
+# Intel UTAF setup
+######################
+Host utaf1-controller
+  HostName 10.189.240.178
+  User lab_ran
+
+Host utaf1-axepoint
+  ProxyJump lab_ran@10.189.240.178
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User admin
+
+#############################
+# Intel PTK1 EasyMesh testbed
+#############################
+Host testbed-laptop
+  HostName 10.189.241.79
+  User prplmesh2
+
+Host testbed-rax40
+  ProxyJump prplmesh2@10.189.241.79
+  HostName 192.168.250.141
+  StrictHostKeyChecking no
+  User root
+
+Host testbed-qualcomm
+  ProxyJump prplmesh2@10.189.241.79
+  HostName 192.168.250.123
+  StrictHostKeyChecking no
+  User root
+
+Host testbed-marvell
+  ProxyJump prplmesh2@10.189.241.79
+  HostName 192.168.250.201
+  StrictHostKeyChecking no
+  User root
+
+Host testbed-sigma
+  ProxyJump prplmesh2@10.189.241.79
+  HostName 192.168.250.103
+  User brcm
+
+Host testbed-broadcom
+  ProxyJump prplmesh2@10.189.241.79,brcm@192.168.250.103
+  HostName 192.165.100.202
+  StrictHostKeyChecking no
+  User root
+
+Host testbed-mediatek
+  ProxyJump prplmesh2@10.189.241.79,brcm@192.168.250.103
+  HostName 192.165.100.102
+  StrictHostKeyChecking no
+  User root
+
+##############
+# ICSL Servers
+##############
+Host icsl7071
+  HostName icsl7071.iil.intel.com
+
+Host icsl5093
+  HostName icsl5093.iil.intel.com
