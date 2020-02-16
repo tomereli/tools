@@ -139,6 +139,12 @@ Host utaf1-axepoint
   StrictHostKeyChecking no
   User admin
 
+Host utaf1-cgr
+  ProxyJump lab_ran@10.189.240.178
+  HostName 192.168.0.1
+  StrictHostKeyChecking no
+  User root
+
 #############################
 # Intel PTK1 EasyMesh testbed
 #############################
