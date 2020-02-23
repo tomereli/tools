@@ -76,11 +76,11 @@ Host nighthawk1
   User root
 
 Host nighthawk4-nuc
-  Hostname 10.189.240.133
-  User tester
+  Hostname 10.189.242.254
+  User qateam
 
 Host nighthawk4
-  ProxyJump tester@10.189.240.133
+  ProxyJump qateam@10.189.242.254
   HostName 192.168.1.1
   StrictHostKeyChecking no
   User root
@@ -125,6 +125,18 @@ Host axepoint20
   HostName 192.168.1.1
   StrictHostKeyChecking no
   User admin
+
+# Turris Omnia
+Host turris-nuc
+  HostName 10.189.242.207
+  StrictHostKeyChecking no
+  User tester
+
+Host turris
+  ProxyJump tester@10.189.242.207
+  HostName 192.168.1.1
+  StrictHostKeyChecking no
+  User root
 
 ######################
 # Intel UTAF setup
