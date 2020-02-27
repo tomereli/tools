@@ -160,13 +160,17 @@ Host utaf1-cgr
 #############################
 # Intel PTK1 EasyMesh testbed
 #############################
+Host testbed-master
+  HostName 10.189.240.38
+  User tester
+
 Host testbed-laptop
   HostName 10.189.241.79
   User prplmesh2
 
 Host testbed-rax40
   ProxyJump prplmesh2@10.189.241.79
-  HostName 192.168.250.141
+  HostName 192.168.250.170
   StrictHostKeyChecking no
   User root
 
