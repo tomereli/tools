@@ -161,7 +161,7 @@ Host utaf1-cgr
 # Intel PTK1 EasyMesh testbed
 #############################
 Host testbed-master
-  HostName 10.189.240.38
+  HostName 10.189.245.255
   User tester
 
 Host testbed-laptop
