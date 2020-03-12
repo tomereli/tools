@@ -1,3 +1,7 @@
+# Add configuration for git proxy
+Host gitlab.com
+  ProxyCommand socat - PROXY:proxy-iil.intel.com:%h:%p,proxyport=911
+
 ############################
 # Intel PTK1 AxePoint Setups
 ############################
