@@ -158,8 +158,21 @@ Host utaf1-cgr
   User root
 
 #############################
+## BLR EasyMesh testbed
+##############################
+Host blr-testbed-master
+  HostName 10.106.63.220
+  User blrqateam
+
+
+#############################
 # Intel PTK1 EasyMesh testbed
 #############################
+
+Host testbed-master2
+  HostName 10.189.240.190
+  User tester
+
 Host testbed-master
   HostName 10.189.245.255
   User tester
