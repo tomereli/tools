@@ -27,6 +27,7 @@ confirm "Add user $1? [y/n]" && {
     run adduser $1
     run usermod -aG docker $1
     run usermod -aG wireshark $1
+    run usermod -aG pcap $1
 
     run cd /home/$1
     run su -c "git clone https://github.com/tomereli/bashtools.git /home/$1/bashtools" $1
