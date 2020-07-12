@@ -2,47 +2,48 @@
 
 
 enable() {
-    gsettings set org.gnome.system.proxy mode manual
-    gsettings set org.gnome.system.proxy.http host "$HTTP_PROXY_HOST"
-    gsettings set org.gnome.system.proxy.http port "$HTTP_PROXY_PORT"
-    gsettings set org.gnome.system.proxy.https host "$HTTPS_PROXY_HOST"
-    gsettings set org.gnome.system.proxy.https port "$HTTPS_PROXY_PORT"
-
-    sudo sed -i.bak '/http[s]::proxy/Id' /etc/apt/apt.conf
-    sudo tee -a /etc/apt/apt.conf <<EOF
+	sudo sed -i.bak '/Acquire/d' /etc/apt/apt.conf
+	sudo tee -a /etc/apt/apt.conf <<EOF
 Acquire::http::proxy "http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/";
 Acquire::https::proxy "http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/";
 EOF
 
-sudo sed -i.bak '/http[s]_proxy/Id' /etc/environment
-sudo tee -a /etc/environment <<EOF
+	sudo sed -i.bak '/http[s]_proxy/d' /etc/environment
+	sudo sed -i.bak '/ftp_proxy/d' /etc/environment
+	sudo sed -i.bak '/no_proxy/d' /etc/environment
+
+	sudo tee -a /etc/environment <<EOF
 http_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
 https_proxy="http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/"
+ftp_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
+no_proxy="$NO_PROXY"
 EOF
 
-sudo mv /etc/systemd/system/docker.service.d/http-proxy.conf.bak /etc/systemd/system/docker.service.d/http-proxy.conf
-sudo mv ~/.docker/config.json.bak ~/.docker/config.json
-sudo systemctl daemon-reload
-sudo systemctl restart docker
 export http_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
 export https_proxy="http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/"
+export ftp_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
+export no_proxy="$NO_PROXY"
 }
 
 disable() {
-    gsettings set org.gnome.system.proxy mode none
-    sudo mv /etc/apt/apt.conf.bak /etc/apt/apt.conf
-    sudo mv /etc/environment.bak /etc/environment
-    sudo mv /etc/systemd/system/docker.service.d/http-proxy.conf /etc/systemd/system/docker.service.d/http-proxy.conf.bak
-    sudo mv ~/.docker/config.json ~/.docker/config.json.bak
-    sudo systemctl daemon-reload
-    sudo systemctl restart docker
-    export http_proxy=
-    export https_proxy=
+	sudo sed -i.bak '/Acquire/d' /etc/apt/apt.conf
+	sudo sed -i.bak '/http[s]_proxy/d' /etc/environment
+	export http_proxy=
+	export https_proxy=
+	export ftp_proxy=
+	export no_proxy=
 }
 
 status() {
-    echo proxy settings
-    gsettings get org.gnome.system.proxy mode
+	echo proxy settings
+	echo http_proxy=$http_proxy
+	echo https_proxy=$https_proxy
+	echo ftp_proxy=$ftp_proxy
+	echo no_proxy=$no_proxy
+	echo cat /etc/apt/apt.conf
+	cat /etc/apt/apt.conf
+	echo cat /etc/environment
+	cat /etc/environment
 }
 
 main() {
@@ -58,6 +59,6 @@ HTTP_PROXY_HOST=proxy-iil.intel.com
 HTTP_PROXY_PORT=911
 HTTPS_PROXY_HOST=proxy-iil.intel.com
 HTTPS_PROXY_PORT=911
-NO_PROXY=intel.com,.intel.com,localhost,127.0.0.1
+NO_PROXY=intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,134.134.0.0/16,10.96.0.0/12,192.168.99.0/24,192.168.39.0/24,172.17.0.0/24
 
 main "$@"

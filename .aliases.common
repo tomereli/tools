@@ -10,6 +10,9 @@
 # alias e emacs
 # alias telnet ssh2
 # Aliases
+alias proxyset='~/bashtools/setproxy enable'
+alias proxyunset='~/bashtools/setproxy disable'
+alias proxystatus='~/bashtools/setproxy status'
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
