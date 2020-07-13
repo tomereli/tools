@@ -8,7 +8,8 @@ Acquire::http::proxy "http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/";
 Acquire::https::proxy "http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/";
 EOF
 
-	sudo sed -i.bak '/http[s]_proxy/d' /etc/environment
+	sudo sed -i.bak '/http_proxy/d' /etc/environment
+	sudo sed -i.bak '/https_proxy/d' /etc/environment
 	sudo sed -i.bak '/ftp_proxy/d' /etc/environment
 	sudo sed -i.bak '/no_proxy/d' /etc/environment
 
@@ -27,7 +28,10 @@ export no_proxy="$NO_PROXY"
 
 disable() {
 	sudo sed -i.bak '/Acquire/d' /etc/apt/apt.conf
-	sudo sed -i.bak '/http[s]_proxy/d' /etc/environment
+	sudo sed -i.bak '/http_proxy/d' /etc/environment
+	sudo sed -i.bak '/https_proxy/d' /etc/environment
+	sudo sed -i.bak '/ftp_proxy/d' /etc/environment
+	sudo sed -i.bak '/no_proxy/d' /etc/environment
 	export http_proxy=
 	export https_proxy=
 	export ftp_proxy=
