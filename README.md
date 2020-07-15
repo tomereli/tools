@@ -28,7 +28,10 @@ cd
 git clone https://github.com/tomereli/tools
 cp tools/.tmux.conf ~/
 cp tools/.zshrc ~/
+cp tools/.pk10.zsh ~/
 ```
+
+Update user name in ~/.zshrc
 
 Open a new shell or `source ~/.zshrc` and you're done
 
