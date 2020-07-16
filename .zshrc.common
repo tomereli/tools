@@ -75,3 +75,5 @@ source ${env_dir}/.aliases.common
 if [ -r "$HOME/.aliases" ]; then
   . $HOME/.aliases
 fi
+
+path+=$HOME/bin
