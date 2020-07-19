@@ -77,3 +77,5 @@ if [ -r "$HOME/.aliases" ]; then
 fi
 
 path+=$HOME/bin
+
+export LIBVIRT_DEFAULT_URI=qemu:///system
