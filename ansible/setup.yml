@@ -1,0 +1,17 @@
+- hosts: vms
+  become: yes
+  gather_facts: true
+
+  vars:
+    username: tester
+    userhome: /home/tester
+    proxy: http://proxy-iil.intel.com:911/
+    no_proxy: intel.com,.intel.com,10.0.0.0/8,172.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,134.134.0.0/16
+
+  tasks:
+  - include: tasks/configure-proxy.yml
+  - include: tasks/configure-packages.yml
+  - include: tasks/configure-user.yml
+
+    
+

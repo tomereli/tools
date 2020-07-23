@@ -1,0 +1,20 @@
+- debug: 
+    msg: Configuring packages on host {{ ansible_host }}
+
+- name: Package Installation - shell utils (CentOS)
+  when: ansible_facts["distribution"] == "CentOS"
+  package:
+    name: ['zsh', 'tmux', 'python3', 'git']
+    state: present
+
+- name: Package Installation - shell utils (Ubuntu/Fedora)
+  when: (ansible_facts["distribution"] == "Ubuntu") or
+        (ansible_facts["distribution"] == "Fedora")
+  package:
+    name: ['zsh', 'tmux', 'python3-pip', 'git']
+    state: present
+
+
+- name: Package Installation - python
+  pip:
+    name: 'powerline-status'
