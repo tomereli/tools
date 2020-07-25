@@ -1,0 +1,8 @@
+- hosts: vms
+  become: yes
+  gather_facts: true
+
+  roles:
+  - proxy
+  - packages
+  - user

@@ -1,61 +1,50 @@
+---
 - debug: 
-    msg: Configuring user {{ username }} on host {{ ansible_host }}
+    msg: Configuring user {{ ansible_user }} on host {{ ansible_host }}
 
 - name: User Configuration - change user shell to zsh 
   become: yes
   user:
-    name: "{{ username }}"
+    name: "{{ ansible_user }}"
     shell: /bin/zsh
 
 - name: User Configuration - clone oh-my-zsh
   become: yes
-  become_user: '{{ username }}'
+  become_user: '{{ ansible_user }}'
   git:
     repo: 'https://github.com/robbyrussell/oh-my-zsh.git'
-    dest: '/home/{{ username }}/.oh-my-zsh'
+    dest: '/home/{{ ansible_user }}/.oh-my-zsh'
 
 - name: User Configuration - clone powerlevel10k
   become: yes
-  become_user: '{{ username }}'
+  become_user: '{{ ansible_user }}'
   git:
     repo: 'https://github.com/romkatv/powerlevel10k.git'
-    dest: '/home/{{ username }}/.oh-my-zsh/custom/themes/powerlevel10k'
+    dest: '/home/{{ ansible_user }}/.oh-my-zsh/custom/themes/powerlevel10k'
 
 - name: User Configuration - clone zsh-autosuggestions
   become: yes
-  become_user: '{{ username }}'
+  become_user: '{{ ansible_user }}'
   git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-    dest: '/home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
+    dest: '/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
 
 - name: User Configuration - clone zsh-syntax-highlighting
   become: yes
-  become_user: '{{ username }}'
+  become_user: '{{ ansible_user }}'
   git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-    dest: '/home/{{ username }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
+    dest: '/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
 - name: User Configuration - Copy .zshrc
-  copy:
-    src: "files/.zshrc"
-    dest: "{{ userhome }}/.zshrc"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+  copy: src=.zshrc dest=/home/{{ ansible_user }}/.zshrc owner={{ ansible_user }} group={{ ansible_user }}
 
 - name: User Configuration - Copy .p10k.zsh
-  copy:
-    src: "files/.p10k.zsh"
-    dest: "{{ userhome }}/.p10k.zsh"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+  copy: src=.p10k.zsh dest=/home/{{ ansible_user }}/.p10k.zsh owner={{ ansible_user }} group={{ ansible_user }}
 
 - name: User Configuration - get python packages path
   shell: python3 -c 'import powerline, pathlib; print(pathlib.Path(powerline.__file__).parent)'
   register: powerline_package_path
 
 - name: User Configuration - Copy .tmux.conf
-  template:
-    src: "templates/.tmux.conf.j2"
-    dest: "{{ userhome }}/.tmux.conf"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+  template: src=.tmux.conf.j2 dest=/home/{{ ansible_user }}/.tmux.conf owner={{ ansible_user }} group={{ ansible_user }}

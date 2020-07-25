@@ -1,3 +1,4 @@
+---
 - debug: 
     msg: Configuring proxy on host {{ ansible_host }}
 

@@ -44,9 +44,9 @@ Finally, run `ssh-copy-id` for each host to set up passwordless ssh authenticati
 git clone https://github.com/tomereli/tools ~/
 cd ~/tools/ansible/
 
-# Edit setup.yml to use localhost instead of vms
+# Edit site.yml to use localhost instead of vms
 
-sudo ansible-playbook -i ansible.cfg setup.yml
+sudo ansible-playbook -i hosts site.yml
 ```
 
 ## Install on the remote server using ansible-playbook
@@ -56,8 +56,8 @@ sudo ansible-playbook -i ansible.cfg setup.yml
 git clone https://github.com/tomereli/tools ~/
 cd ~/tools/ansible/
 
-# Edit ansible.cfg for remote servers
-# Edit setup.yml user parameters
+# Edit hosts for remote servers
+# Edit site.yml user parameters
 
-ansible-playbook -i ansible.cfg setup.yml
+ansible-playbook -i hosts site.yml
 ```
