@@ -1,0 +1,5 @@
+---
+- name: hostnamectl set-hostname
+  shell: hostnamectl set-hostname {{ ansible_host }}
+  when: ansible_host is defined
+    
