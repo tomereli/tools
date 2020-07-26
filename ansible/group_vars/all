@@ -1,3 +1,5 @@
 ---
 proxy: http://proxy-iil.intel.com:911/
 no_proxy: intel.com,.intel.com,10.0.0.0/8,172.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,134.134.0.0/16
+# generated with ansible all -i localhost, -m debug -a "msg={{ 'Dbio10' | password_hash('sha512', 'mysecretsalt') }}"
+password: $6$mysecretsalt$Fdv.z1N8319kLwcHDnCHtCzSR34mzULgsDF4ce.6Obefz4l0BtXF4G4S26sGAIIWS5hjdotb.cfCLy4xu9YCZ/

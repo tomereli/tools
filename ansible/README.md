@@ -2,12 +2,6 @@
 
 ## Prerequisites - Remote servers
 
-### Remove password prompt for remote user
-```
-# Edit /etc/sudoers.d/{{ username }}"
-# add line: "{{ username }} ALL=(ALL) NOPASSWD: ALL
-```
-
 ### Add ssh keys
 
 In the host which is used for configuration of other VMs/Hosts, update `~/.ssh/config` to include all hosts, For example:
@@ -61,3 +55,8 @@ cd ~/tools/ansible/
 
 ansible-playbook -i hosts site.yml
 ```
+
+---
+**Note**
+Default password for created users is Dbio10
+---

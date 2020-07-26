@@ -12,7 +12,7 @@
   when: (ansible_facts["distribution"] == "Ubuntu") or
         (ansible_facts["distribution"] == "Fedora")
   package:
-    name: ['zsh', 'tmux', 'python3-pip', 'git']
+    name: ['zsh', 'tmux', 'python3-pip', 'git', 'acl']
     state: present
 
 

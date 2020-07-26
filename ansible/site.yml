@@ -1,9 +1,14 @@
 - hosts: vms
+  vars_prompt:
+    - name: username
+      prompt: "Enter username?"
+      private: no
+
   become: yes
   gather_facts: true
 
   roles:
+  - host
   - proxy
   - packages
   - user
-  - host
