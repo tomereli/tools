@@ -31,6 +31,12 @@ Host fedora32
 
 Finally, run `ssh-copy-id` for each host to set up passwordless ssh authentication.
 
+### Install ansible-galaxy requirements
+
+```
+ansible-galaxy install -r requirements.txt
+```
+
 ## Install locally
 
 ```

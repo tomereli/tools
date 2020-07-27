@@ -7,6 +7,7 @@
     name: "{{ username }}"
     password: "{{ password }}"
     groups: wheel
+    append: yes
     shell: /bin/zsh
     state: present
 

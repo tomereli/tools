@@ -15,7 +15,23 @@
     name: ['zsh', 'tmux', 'python3-pip', 'git', 'acl']
     state: present
 
+- include_role:
+    name: geerlingguy.pip
 
 - name: Package Installation - python
   pip:
     name: 'powerline-status'
+
+- include_role:
+    name: geerlingguy.docker
+  vars:
+    docker_http_proxy: "{{ proxy }}"
+    docker_https_proxy: "{{ proxy }}"
+    docker_no_proxy: "{{ no_proxy }}"
+    docker_users:
+      - "{{ username }}"
+
+- include_role:
+    name: geerlingguy.ansible
+  vars:
+    ansible_install_method: pip

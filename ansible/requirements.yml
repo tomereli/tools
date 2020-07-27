@@ -1,0 +1,6 @@
+---
+- name: geerlingguy.pip
+- name: geerlingguy.ansible
+- name: geerlingguy.repo-epel
+- src: https://github.com/tomereli/ansible-role-docker.git
+  name: geerlingguy.docker
