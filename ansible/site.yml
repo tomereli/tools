@@ -1,7 +1,10 @@
 - hosts: vms
   vars_prompt:
     - name: username
-      prompt: "Enter username?"
+      prompt: "Enter user name"
+      private: no
+    - name: usermail
+      prompt: "Enter user mail"
       private: no
 
   become: yes

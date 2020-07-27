@@ -41,6 +41,12 @@
 - name: User Configuration - Copy .zshrc
   copy: src=.zshrc dest=/home/{{ username }}/.zshrc owner={{ username }} group={{ username }}
 
+- name: User Configuration - Copy .zshrc.user
+  copy: src=.zshrc.user dest=/home/{{ username }}/.zshrc.{{ username }} owner={{ username }} group={{ username }}
+
+- name: User Configuration - Copy .aliases
+  copy: src=.aliases dest=/home/{{ username }}/.aliases owner={{ username }} group={{ username }}
+
 - name: User Configuration - Copy .p10k.zsh
   copy: src=.p10k.zsh dest=/home/{{ username }}/.p10k.zsh owner={{ username }} group={{ username }}
 
@@ -50,3 +56,6 @@
 
 - name: User Configuration - Copy .tmux.conf
   template: src=.tmux.conf.j2 dest=/home/{{ username }}/.tmux.conf owner={{ username }} group={{ username }}
+
+- name: User Configuration - Copy .gitconfig
+  template: src=.gitconfig.j2 dest=/home/{{ username }}/.gitconfig owner={{ username }} group={{ username }}

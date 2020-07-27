@@ -1,0 +1,12 @@
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+# fix ssh git variant after git upgrade
+export GIT_SSH_VARIANT=ssh
+
+if [ -r "$HOME/.aliases" ]; then
+  . $HOME/.aliases
+fi
+
+path+=$HOME/bin
+
+export LIBVIRT_DEFAULT_URI=qemu:///system

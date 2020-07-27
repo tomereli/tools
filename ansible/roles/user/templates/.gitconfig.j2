@@ -1,0 +1,38 @@
+{{ ansible_managed | comment }}
+
+[user]
+	email = {{ usermail }}
+	name = {{ username }}
+
+[core]
+	editor = vi
+	autocrlf = input
+	pager = cat
+	excludesfile = /home/{{ username }}/.gitignore
+
+[apply]
+	ignorewhitespace = change
+
+[color]
+	ui = auto
+
+[diff]
+	tool = meld
+
+[credential]
+	helper = store
+
+[http]
+	sslverify = false
+
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+
+[url "https://github.com/"]
+	insteadOf = ssh://git@github.com/
+
+[url "https://gitlab.com/"]
+	insteadOf = ssh://git@gitlab.com/
+
+[format]
+	signoff = true
