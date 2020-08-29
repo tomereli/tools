@@ -78,5 +78,6 @@ fi
 
 path+=$HOME/bin
 path+=$HOME/.local/bin
+path+=$HOME/.local/go/bin
 
 export LIBVIRT_DEFAULT_URI=qemu:///system
