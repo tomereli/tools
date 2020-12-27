@@ -1,4 +1,4 @@
-- hosts: vms
+- hosts: localhost
   vars_prompt:
     - name: username
       prompt: "Enter user name"

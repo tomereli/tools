@@ -34,7 +34,7 @@ Finally, run `ssh-copy-id` for each host to set up passwordless ssh authenticati
 ### Install ansible-galaxy requirements
 
 ```
-ansible-galaxy install -r requirements.txt
+ansible-galaxy install -r requirements.yaml
 ```
 
 ## Install locally
