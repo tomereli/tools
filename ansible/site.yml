@@ -1,10 +1,16 @@
 - hosts: localhost
+  vars:
+    user_groups: 
+      - docker
   vars_prompt:
     - name: username
       prompt: "Enter user name"
       private: no
     - name: usermail
       prompt: "Enter user mail"
+      private: no
+    - name: sudo_user
+      prompt: "Sudo user? (yes/no)"
       private: no
 
   become: yes

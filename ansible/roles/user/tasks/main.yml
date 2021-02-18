@@ -6,10 +6,17 @@
   user:
     name: "{{ username }}"
     password: "{{ password }}"
-    groups: wheel
-    append: yes
+    groups: "{{ user_groups }}"
+    append: no
     shell: /bin/zsh
     state: present
+
+- name: User Configuration - Add user to wheel group
+  user:
+    name: "{{ username }}"
+    groups: wheel
+    append: yes
+  when: sudo_user == "yes"
 
 - name: User Configuration - clone oh-my-zsh
   become: yes
