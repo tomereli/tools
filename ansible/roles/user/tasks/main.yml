@@ -67,3 +67,9 @@
 
 - name: User Configuration - Copy .gitconfig
   template: src=.gitconfig.j2 dest=/home/{{ username }}/.gitconfig owner={{ username }} group={{ username }}
+
+- name: Create ~/.docker directory
+  file: path=/home/{{ username }}/.docker state=directory mode=0755
+
+- name: Add proxy for docker containers
+  template: src=dockerconfig.j2 dest=/home/{{ username }}/.docker/config.json owner={{ username }} group={{ username }} backup=yes
