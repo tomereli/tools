@@ -36,3 +36,5 @@
 
 [format]
 	signoff = true
+[init]
+        defaultBranch = main
