@@ -71,6 +71,7 @@ cd_func ()
 }
 
 source ${env_dir}/.aliases.common
+source ${env_dir}/setproxy
 
 if [ -r "$HOME/.aliases" ]; then
   . $HOME/.aliases

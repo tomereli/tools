@@ -1,68 +1,29 @@
 #!/bin/bash
 
-
-enable() {
-	sudo sed -i.bak '/Acquire/d' /etc/apt/apt.conf
-	sudo tee -a /etc/apt/apt.conf <<EOF
-Acquire::http::proxy "http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/";
-Acquire::https::proxy "http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/";
-EOF
-
-	sudo sed -i.bak '/http_proxy/d' /etc/environment
-	sudo sed -i.bak '/https_proxy/d' /etc/environment
-	sudo sed -i.bak '/ftp_proxy/d' /etc/environment
-	sudo sed -i.bak '/no_proxy/d' /etc/environment
-
-	sudo tee -a /etc/environment <<EOF
-http_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
-https_proxy="http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/"
-ftp_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
-no_proxy="$NO_PROXY"
-EOF
-
-export http_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
-export https_proxy="http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT/"
-export ftp_proxy="http://$HTTP_PROXY_HOST:$HTTP_PROXY_PORT/"
-export no_proxy="$NO_PROXY"
-}
-
-disable() {
-	sudo sed -i.bak '/Acquire/d' /etc/apt/apt.conf
-	sudo sed -i.bak '/http_proxy/d' /etc/environment
-	sudo sed -i.bak '/https_proxy/d' /etc/environment
-	sudo sed -i.bak '/ftp_proxy/d' /etc/environment
-	sudo sed -i.bak '/no_proxy/d' /etc/environment
-	export http_proxy=
-	export https_proxy=
-	export ftp_proxy=
-	export no_proxy=
-}
-
-status() {
-	echo proxy settings
-	echo http_proxy=$http_proxy
-	echo https_proxy=$https_proxy
-	echo ftp_proxy=$ftp_proxy
-	echo no_proxy=$no_proxy
-	echo cat /etc/apt/apt.conf
-	cat /etc/apt/apt.conf
-	echo cat /etc/environment
-	cat /etc/environment
-}
-
-main() {
-    op=${1-enable}
-    shift
-
-    [ "$op" = "enable" ] && enable "$@"
-    [ "$op" = "disable" ] && disable "$@"
-    [ "$op" = "status" ] && status "$@"
-}
-
-HTTP_PROXY_HOST=proxy-iil.intel.com
-HTTP_PROXY_PORT=911
-HTTPS_PROXY_HOST=proxy-iil.intel.com
-HTTPS_PROXY_PORT=911
-NO_PROXY=intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,134.134.0.0/16,10.96.0.0/12,192.168.99.0/24,192.168.39.0/24,172.17.0.0/24
-
-main "$@"
+if `nc -z proxy-dmz.intel.com 911 2>&1 | grep -q succeeded ` ; then
+	export http_proxy=http://proxy-dmz.intel.com:912
+	export https_proxy=http://proxy-dmz.intel.com:912
+	export socks_proxy=socks5://proxy-dmz.intel.com:1080
+	export no_proxy="127.0.0.1,localhost,.intel.com,.internal,.local,git.ops.smartperimeter.io,gateway.smart-edge.dev,ui.smart-edge.dev,.irv-colo.smart-edge.net"
+	export proxy_status=proxy_yes
+	git config --global http.proxy http://proxy-dmz.intel.com:912
+	git config --global https.proxy http://proxy-dmz.intel.com:912
+	# Set prompt to Blue for on VPN
+	export PS1="\e[${Blueshell}m[\u@\h \W]\$ \e[m"
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	echo "!! Intel proxies detected !!"
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+else
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	echo "!! Intel proxies unset !!"
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
+	unset http_proxy
+	unset https_proxy
+	unset socks_proxy
+	unset no_proxy
+	export proxy_status=no_proxy
+	git config --global --unset http.proxy
+	git config --global --unset https.proxy
+	# Set prompt to cyan for off VPN
+	export PS1="\e[${Cyanshell}m[\u@\h \W]\$ \e[m"
+fi

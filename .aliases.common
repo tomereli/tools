@@ -3,6 +3,10 @@
 # $Source: /usr/cvs/cvsrep/ec_environ-1.0/release/user/aliases,v $
 # $Revision: 1.1 $
 
+alias reload='source ~/.zshrc'
+
+alias ssm-dev01='aws ssm start-session  --profile 924169428395_ps-global-admin --target i-0d490744ce818abfd --region us-east-1'
+
 # You may place your personal aliases here or in .cshrc.$USER
 #
 # examples:
@@ -63,7 +67,7 @@ alias cpuinfo='lscpu'
 alias df='df -H'
 alias du='du -ch'
 alias gg='cgrep -snir'
-alias cd=cd_func
+#alias cd=cd_func
 
 #slack
 alias slack='slack --proxy-server=proxy-iil.intel.com:911'
