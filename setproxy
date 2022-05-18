@@ -8,6 +8,9 @@ if `nc -z proxy-dmz.intel.com 911 2>&1 | grep -q succeeded ` ; then
 	export proxy_status=proxy_yes
 	git config --global http.proxy http://proxy-dmz.intel.com:912
 	git config --global https.proxy http://proxy-dmz.intel.com:912
+	npm config set proxy http://proxy-dmz.intel.com:912
+	npm config set https-proxy http://proxy-dmz.intel.com:912
+
 	# Set prompt to Blue for on VPN
 	export PS1="\e[${Blueshell}m[\u@\h \W]\$ \e[m"
 	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -24,6 +27,7 @@ else
 	export proxy_status=no_proxy
 	git config --global --unset http.proxy
 	git config --global --unset https.proxy
+	npm config delete proxy https-proxy
 	# Set prompt to cyan for off VPN
 	export PS1="\e[${Cyanshell}m[\u@\h \W]\$ \e[m"
 fi
