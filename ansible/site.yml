@@ -1,23 +1,11 @@
 - hosts: localhost
   vars:
-    user_groups: 
-      - docker
-  vars_prompt:
-    - name: username
-      prompt: "Enter user name"
-      private: no
-    - name: usermail
-      prompt: "Enter user mail"
-      private: no
-    - name: sudo_user
-      prompt: "Sudo user? (yes/no)"
-      private: no
+    username: tbeliyah
+    usermail: tomer.b.eliyahu@intel.com
+    sudo_user: no
 
-  become: yes
+  become: no
   gather_facts: true
 
   roles:
-  - host
-  - proxy
-  - packages
   - user

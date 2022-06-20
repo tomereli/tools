@@ -2,21 +2,12 @@
 - debug: 
     msg: Configuring user {{ username }} on host {{ ansible_host }}
 
-- name: User Configuration - Add user
-  user:
-    name: "{{ username }}"
-    password: "{{ password }}"
-    groups: "{{ user_groups }}"
-    append: no
-    shell: /bin/zsh
-    state: present
-
-- name: User Configuration - Add user to wheel group
-  user:
-    name: "{{ username }}"
-    groups: wheel
-    append: yes
-  when: sudo_user == "yes"
+- name: User Configuration - set up zsh for user
+  blockinfile:
+    path: '/home/{{ username }}/.bash_profile'
+    block: |
+      export SHELL=/bin/zsh
+      exec /bin/zsh -l
 
 - name: User Configuration - clone oh-my-zsh
   become: yes
