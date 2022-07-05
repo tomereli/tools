@@ -112,4 +112,6 @@ source $ZSH/oh-my-zsh.sh
 
 [[ ! -f ~/.zshrc.$USER ]] || source ~/.zshrc.$USER
 
+[[ ! -f ~/.zsh_profile ]] || source ~/.zsh_profile
+
 umask 022

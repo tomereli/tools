@@ -43,6 +43,9 @@
 - name: User Configuration - Copy .zshrc.user
   copy: src=.zshrc.user dest=/home/{{ username }}/.zshrc.{{ username }} owner={{ username }} group={{ username }}
 
+- name: User Configuration - Copy .zsh_profile
+  copy: src=.zsh_profile dest=/home/{{ username }}/.zsh_profile owner={{ username }} group={{ username }}
+
 - name: User Configuration - Copy .aliases
   copy: src=.aliases dest=/home/{{ username }}/.aliases owner={{ username }} group={{ username }}
 
