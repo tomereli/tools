@@ -1,14 +1,12 @@
 [user]
-	email = user@email.com
-	name = user name
+	email = tarbeleliyahu@paypal.com
+	name = Tomer Arbel Eliyahu
 
 [core]
-	gitProxy = /home/<user>/git-proxy
-	gitproxy = none for intel.com
 	editor = vi
 	autocrlf = input
 	pager = cat
-	excludesfile = /home/<user>/.gitignore
+	#excludesfile = /home/{{ username }}/.gitignore
 
 [apply]
 	ignorewhitespace = change
@@ -36,5 +34,3 @@
 
 [format]
 	signoff = true
-[init]
-        defaultBranch = main
